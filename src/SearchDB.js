@@ -1,21 +1,27 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Film from './Film.js'
+import './App.css';
 
 class SearchDB extends Component{
 
     constructor(){
         super();
         this.state = {
-            movies: "hey",
+            movies: "",
             title: ''
         }
         this.update = this.update.bind(this);
-        this.handleInput = this.handleInput.bind(this);
+        this.handleInputTitle = this.handleInputTitle.bind(this);
+        this.handleInputYear = this.handleInputYear.bind(this);
     }
 
-    handleInput(event){
-        this.setState({title:document.getElementById("text").value});
+    handleInputTitle(event){
+        this.setState({title:event.target.value});
+    }
+
+     handleInputYear(event){
+        this.setState({year:event.target.value});
     }
 
     update = (event) =>{
@@ -27,7 +33,7 @@ class SearchDB extends Component{
      this.setState({movies:response.data.Search});
     console.log(response.data);
     })  
-    }   
+    }
 
     render(){
         let films = [];
@@ -37,11 +43,12 @@ class SearchDB extends Component{
         }
         return(
             
-            <div>
+            <div className = "SearchDB">
             <form onSubmit={this.update}>
             <label>
                     Movie:
-                    <input id="text" type="text" onChange={(this.handleInput)}></input>
+                    <input id="text" type="text" onChange={(this.handleInputTitle)}></input>
+                    <input id="text" type="text" onChange={(this.handleInputYear)}></input>
             <input type="button" onClick = {this.update} value = "Find Film"></input>
             </label><br>
             </br>
